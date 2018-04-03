@@ -8,6 +8,17 @@ Analyser les fichiers de sortie de FDS pour extraire des données en grille stru
 Une fois ces données extraites, trouver un moyen pour convertir les infos vers un moteur de jeu pour ajouter des systèmes de particule simulant le feu, [exemple ici](https://youtu.be/mmrTUgUC9y8)
 Prendre par exemple au maximum de distance de l'isosurface de temperature une image assez grande de flamme, alors que plus proche de l'isosurface les flammes seront plus petites, ou au moins plus transparentes?
 
+CF:
+* [Use images as particle positions](https://forums.unrealengine.com/development-discussion/blueprint-visual-scripting/63159-how-to-place-single-gpu-particles-at-specified-locations)
+* [Nvidia fire simulation](https://developer.nvidia.com/nvidia-flow) and [associated demo](https://www.youtube.com/watch?v=Ea1ofhkNXuQ)
+* [A tutorial for creating fire in unreal](https://www.youtube.com/watch?v=hZLbGvtyS6g)
+* [Import Sprite sheet in Unreal](https://wiki.unrealengine.com/Sprite_Sheet:_How_to_import_outside_images_sequences_in_UE4)
+* [Vertex animation: blender to Unreal](https://www.youtube.com/watch?v=CUTc4agcWa4)
+* [Blender fluids simulation to UE4 :D](https://www.youtube.com/watch?v=YTDEdZovHbw)
+
+Il n'y a "qu'à" importer les fichiers vtk dans des bakes des animations blender, et de là... ?
+
+
 ### Idée
 Les résultats de simulation (sorties de FDS) sont visualisables via SmokeView, mais difficilement exportables vers d'autres formats. Il existe toutefois un utilitaire écrit en FORTRAN, fds2ascii, permettant de faire certaines conversions.
 
@@ -36,3 +47,5 @@ Le fichier .mesh doit être associé à un fichier .sol, contenant en chaque noe
 Le fichier .fga créé peut ensuite être réimporté dans unreal engine pour influencer un système de particules en tant que champ de vecteur global, par exemple (théatre d'orange):
 
 ![example](orange_FGA.jpg)
+
+#### 3 - Resources to make al
