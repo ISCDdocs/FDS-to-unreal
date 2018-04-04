@@ -45,5 +45,6 @@ Le fichier .fga créé peut ensuite être réimporté dans unreal engine pour in
 
 ![example](orange_FGA.jpg)
 
-#### 3 - Lecture (remplacement à terme) des fichiers de cache (.bobj) de la simulation de blender
-Adapter [ce code](http://www.clintons3d.com/plugins/downloads/read_blender_fluids.py) pour espérer remplacer les fichiers de cache de blender, et y charger une simulation de fluide...
+#### 3 - readbobj
+
+Adapter [ce code](http://www.clintons3d.com/plugins/downloads/read_blender_fluids.py) pour lire puis réécrire les fichiers de cache de blender, et y charger une simulation de fluide "custom", comme celle de FDS.
