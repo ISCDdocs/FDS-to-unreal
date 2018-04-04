@@ -1,9 +1,12 @@
 # FDS2VTK
 
-Export de données de simulations de [FDS](https://pages.nist.gov/fds-smv/) vers d'autres formats, pour pouvoir réaliser des visualisations "réalistes" du feu dans des moteurs de rendu ou mieux, de jeu vidéo.
+Exporter les résultats de simulation de [FDS](https://pages.nist.gov/fds-smv/) vers d'autres formats, pour aboutir finalement à des visualisations "réalistes" du feu dans des moteurs de rendu ou de jeu.
 
 ### Contexte
-Analyser les fichiers de sortie de FDS pour extraire des données en grille structurée (voxels en x, y et z) de la concentration de suie dans l'air (SOOT) et de la flamme (Heat Release Per Volume).
+
+Les résultats de simulation (sorties de FDS) sont visualisables via SmokeView, mais difficilement exportables vers d'autres formats. Il existe toutefois un utilitaire écrit en FORTRAN, fds2ascii, permettant de faire certaines conversions.
+
+-> Analyser les fichiers de sortie de FDS pour extraire des données en grille structurée (voxels en x, y et z) de la concentration de suie dans l'air (SOOT) et de la flamme (Heat Release Per Volume).
 
 Une fois ces données extraites, trouver un moyen pour convertir les infos vers un moteur de jeu pour ajouter des systèmes de particule simulant le feu, [exemple ici](https://youtu.be/mmrTUgUC9y8)
 Prendre par exemple au maximum de distance de l'isosurface de temperature une image assez grande de flamme, alors que plus proche de l'isosurface les flammes seront plus petites, ou au moins plus transparentes?
@@ -16,13 +19,7 @@ CF:
 * [Vertex animation: blender to Unreal](https://www.youtube.com/watch?v=CUTc4agcWa4)
 * [Blender fluids simulation to UE4 :D](https://www.youtube.com/watch?v=YTDEdZovHbw)
 
-Il n'y a "qu'à" importer les fichiers vtk dans des bakes des animations blender, et de là... ?
-
-
-### Idée
-Les résultats de simulation (sorties de FDS) sont visualisables via SmokeView, mais difficilement exportables vers d'autres formats. Il existe toutefois un utilitaire écrit en FORTRAN, fds2ascii, permettant de faire certaines conversions.
-
-### Usage
+### Fichiers
 
 #### 1 - fds2ascii
 ```
@@ -48,4 +45,5 @@ Le fichier .fga créé peut ensuite être réimporté dans unreal engine pour in
 
 ![example](orange_FGA.jpg)
 
-#### 3 - Resources to make al
+#### 3 - Lecture (remplacement à terme) des fichiers de cache (.bobj) de la simulation de blender
+Adapter [ce code](http://www.clintons3d.com/plugins/downloads/read_blender_fluids.py) pour espérer remplacer les fichiers de cache de blender, et y charger une simulation de fluide...
