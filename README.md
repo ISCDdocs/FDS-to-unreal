@@ -51,4 +51,6 @@ Adapter [ce code](http://www.clintons3d.com/plugins/downloads/read_blender_fluid
 
 **Edit:** Le code fonctionne -> possible d'overwriter les caches d'un baking de blender avec des mailages persos en supprimant les anciens .bobj.gz, et en incoporant les resultats de la simulation.
 
-<video src="http://iscd.upmc.fr/fds/render.avi" poster="fds2blender.jpg" width="320" height="200" controls preload></video>
+Une video est disponible (pour l'instant) [ici](http://iscd.upmc.fr/fds/render.avi)
+
+![example](fds2blender.jpg)
