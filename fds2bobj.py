@@ -7,15 +7,19 @@ import msh
 import argparse
 import gzip
 import struct
+import shutil
+
+from functools import partial
+import multiprocessing
 
 """
 python fds2ascii.py --input Desktop/Fires/ -o Desktop/Fires/vtk/ --start 700 --end 750 --run
 
 pb: permettre plusieurs etapes:
-1. exporter de la donnée fds vers vtk pour lire en paraview
+1. exporter de la donnee fds vers vtk pour lire en paraview
 2. mise au point du filtre paraview ou en vtk
 3. Incorporer le filtre vtk dans le code python
-4. préparer la simulation en blender
+4. preparer la simulation en blender
 5. modifier les fichiers de cache de blender
 """
 
@@ -139,7 +143,7 @@ def arguments():
 
     return args
 
-def doSomething(rgrid, value, outFile):
+def doSomething(rgrid, value, outFile, isoValue):
     # Fill the value array
     signedDistances = vtk.vtkFloatArray()
     signedDistances.SetNumberOfComponents(1)
@@ -154,7 +158,7 @@ def doSomething(rgrid, value, outFile):
     iso = vtk.vtkContourFilter()
     iso.SetInputData(rgrid)
     iso.SetNumberOfContours(1)
-    iso.SetValue(0,40)
+    iso.SetValue(0,isoValue)
     iso.Update()
 
     #Get verts and triangles
@@ -210,7 +214,7 @@ if __name__=="__main__":
 
     # 3 - Loop on the data files
     if args.run:
-        for f in files[1:]:
+        for f in files:
 
             #Read the .s3d files
             if f[1][-4:] == ".s3d":
@@ -232,11 +236,36 @@ if __name__=="__main__":
                 values = readS3D( os.path.join(args.input,f[1]) , frames , args.start, args.end)
 
                 #Don't write to vtk!!!
+                def runThread(X):
+                    i = X[0]
+                    v = X[1]
+                    #avec X = [index, f[0], value]
+                    print f[0] + ": step " + str(i)
+                    root = "/home/norgeot/Desktop/cachefluids/"
+                    path = root + "smoke" if f[0]=="SOOT" else root + "flame"
+                    preview = os.path.join(path , "fluidsurface_preview_" + str(args.start + i).zfill(4) + ".bobj.gz")
+                    final   = os.path.join(path , "fluidsurface_final_"   + str(args.start + i).zfill(4) + ".bobj.gz")
+                    iso = 100 if f[0]=="SOOT" else 40
+                    doSomething(rgrid, v, preview, isoValue=iso)
+                    shutil.copy(preview, final)
+
+                pool      = multiprocessing.Pool(15)
+                pool.map(runThread, [[i,v] for i,v in enumerate(values)])
+
+                """
                 for i,v in enumerate(values):
                     #vtkFile = os.path.join(args.output, case + "_" + f[0] + "_" + str(args.start + i + 1) + ".vtk")
                     #print "Writing " + vtkFile
                     #exportVTK(vtkFile , f[0], _x, _y, _z, v )
-                    doSomething(rgrid, v, os.path.join("/home/norgeot/Desktop/cachefluids/test/cache_fluid/cache_fluid", "fluidsurface_preview_" + str(i).zfill(4) + ".bobj.gz") )
+                    print f[0] + ": step " + str(i)
+                    root = "/home/norgeot/Desktop/cachefluids/"
+                    path = root + "smoke" if f[0]=="SOOT" else root + "flame"
+                    preview = os.path.join(path , "fluidsurface_preview_" + str(args.start + i).zfill(4) + ".bobj.gz")
+                    final   = os.path.join(path , "fluidsurface_final_"   + str(args.start + i).zfill(4) + ".bobj.gz")
+                    iso = 100 if f[0]=="SOOT" else 40
+                    doSomething(rgrid, v, preview, isoValue=iso)
+                    shutil.copy(preview, final)
+                """
 
     else:
         print args
