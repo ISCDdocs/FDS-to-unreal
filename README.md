@@ -50,3 +50,5 @@ Le fichier .fga créé peut ensuite être réimporté dans unreal engine pour in
 Adapter [ce code](http://www.clintons3d.com/plugins/downloads/read_blender_fluids.py) pour lire puis réécrire les fichiers de cache de blender, et y charger une simulation de fluide "custom", comme celle de FDS.
 
 **Edit:** Le code fonctionne -> possible d'overwriter les caches d'un baking de blender avec des mailages persos en supprimant les anciens .bobj.gz, et en incoporant les resultats de la simulation.
+
+<video src="http://iscd.upmc.fr/fds/render.avi" poster="fds2blender.jpg" width="320" height="200" controls preload></video>
