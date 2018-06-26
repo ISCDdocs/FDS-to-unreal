@@ -1,3 +1,5 @@
+**Les fonctionnalités pour FDS -> vtk -> blender sont reprises dans l'[addon blender](https://github.com/ISCDdocs/mesh-addon) de l'organisation ISCDdocs, hormis la transformation d'un .mesh vers un champ de vecteurs dans Unreal!!! Dépot gardé pour "référence" donc**
+
 # FDS2VTK
 
 Exporter les résultats de simulation de [FDS](https://pages.nist.gov/fds-smv/) vers d'autres formats, pour aboutir finalement à des visualisations "réalistes" du feu dans des moteurs de rendu ou de jeu.
